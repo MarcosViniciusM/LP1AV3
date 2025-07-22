@@ -65,14 +65,17 @@ void criarRota(vector<Imovel>& imovel, Corretor corretor, vector<int>& rota, int
 
 	
 	int numViagens=selecao.size();
-	double latIni = corretor.getLat();
-	double lngIni = corretor.getLng();
+	double latAtual = corretor.getLat();
+	double lngAtual = corretor.getLng();
 	
+	// Percorre a seleção, colocando o próximo imóvel mais próximo no vetor rota, apagando o mesmo do vetor seleção, e colocando o endereço dele no próximo cálculo.
 	for(int i=0;i<numViagens;i++){
 		int posicao;
 		
-		posicao = vizinhoMaisProximo(imovel, selecao, latIni, lngIni);
+		posicao = vizinhoMaisProximo(imovel, selecao, latAtual, lngAtual);
 		rota.push_back(selecao[posicao]);
+		latAtual=imovel[rota[i]].getLat();
+		lngAtual=imovel[rota[i]].getLng();
 		
 		selecao.erase(selecao.begin() + posicao);
 	}
